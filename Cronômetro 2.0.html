@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronômetro</title>
+
+        <style>
+                .timer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        }
+        p#time {
+        font-size: 72px;
+        font-weight: bold;
+        color: #333;
+        margin: 0;
+        }
+
+        .buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        }
+
+        button {
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #333;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 0 10px;
+        }
+
+        button:hover {
+        background-color: #444;
+        }
+        </style>
+
+</head>
+<body>
+    <div class="timer">
+        <p id="time">00:00:00</p>
+        <div class="buttons">
+            <button id="pause-btn">Pausar</button>
+            <button id="reset-btn">Resetar</button>
+            <button id="continue-btn">Continuar</button>
+        </div>
+    </div>
+
+<script>
+        let seconds = 0, minutes = 0, hours = 0;
+        let timer;
+        function startTimer() {
+        timer = setInterval(() => {
+        seconds++;
+        if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+        minutes = 0;
+        hours++;
+        }
+        }
+        document.querySelector('#time').innerHTML = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+        }, 1000);
+        }
+
+        function pauseTimer() {
+        clearInterval(timer);
+        }
+
+        function resetTimer() {
+        clearInterval(timer);
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
+        document.querySelector('#time').innerHTML = "00:00:00";
+        }
+
+        function continueTimer() {
+        startTimer();
+        }
+
+        document.querySelector('#pause-btn').addEventListener('click', pauseTimer);
+        document.querySelector('#reset-btn').addEventListener('click', resetTimer);
+        document.querySelector('#continue-btn').addEventListener('click', continueTimer);
+
+        startTimer();
+</script>
+
+</body>
+</html>
